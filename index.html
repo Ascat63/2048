@@ -1,30 +1,24 @@
-const express = require('express');
-const fs = require('fs');
-const app = express();
-const PORT = 3000;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2048</title>
+    <link rel="stylesheet" href="style.css"/>
+    <script src="app.js"></script>
+</head>
+<body>
 
-app.use(express.json());
+<div class="container">
+    <div class="info">
+        <h1>2048</h1>
+        <div class="score-container">
+            <p class="score-title">score</p>
+            <h2 id="score">0</h2>
+        </div>
+    </div>
+    <p id="result">Join the numbers and get to the <b>2048</b> tile!</p>
+    <div class="grid"></div>
+</div>
 
-let knowledgeBase = {};
-
-// Cargar base de conocimientos
-if (fs.existsSync('knowledgeBase.json')) {
-    knowledgeBase = JSON.parse(fs.readFileSync('knowledgeBase.json', 'utf-8'));
-}
-
-app.post('/chat', (req, res) => {
-    const { message } = req.body;
-
-    // Responder o aprender
-    const reply = knowledgeBase[message.toLowerCase()] || "No entiendo eso. ¿Cómo debería responder?";
-    if (!knowledgeBase[message.toLowerCase()]) {
-        knowledgeBase[message.toLowerCase()] = reply;
-        fs.writeFileSync('knowledgeBase.json', JSON.stringify(knowledgeBase, null, 2));
-    }
-
-    res.json({ reply });
-});
-
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+</body>
+</html>
